@@ -1,0 +1,66 @@
+{{extend ("./layout")}}
+
+{{#block ("head")}}
+<link href="/www/css/register.css" rel="stylesheet" type="text/css"/>
+{{/block}}
+
+{{#block ("body")}}
+<div class="aw-register-box">
+  <div class="mod-head">
+    <a href="/"></a>
+    <h1>注册新用户</h1>
+  </div>
+  <div class="mod-body">
+    <form action="/account/register" class="aw-register-form" method="post" id="register_form">
+
+      <ul>
+        <li class="alert alert-danger hide error_message text-left">
+          <i class="icon icon-delete"></i> <em></em>
+        </li>
+        <li>
+          <input class="aw-register-name form-control" type="text" name="username" placeholder="用户名"
+                 tips="请输入一个 2-14 位的用户名" errortips="用户名长度不符合" value="{{username}}"/>
+        </li>
+        <li>
+          <input class="aw-register-email form-control" type="text" placeholder="邮箱" name="email"
+                 tips="请输入你常用的电子邮箱作为你的账号" value="" errortips="邮箱格式不正确"/>
+        </li>
+        <li>
+          <input class="aw-register-pwd form-control" type="password" name="password" placeholder="密码"
+                 tips="请输入 6-16 个字符,区分大小写" errortips="密码不符合规则"/>
+        </li>
+
+        <hr/>
+        <li class="aw-register-verify">
+          <img class="pull-right" width="120"
+               onclick="this.src = '/account/captcha?'+Math.random()"
+               src="/account/captcha">
+
+          <input type="text" class="form-control" name="vcode" placeholder="验证码"/>
+        </li>
+        <li class="last">
+          <label><input type="checkbox" checked="checked" value="agree"/> 我同意</label> <a
+                href="javascript:;" class="aw-agreement-btn">用户协议</a>
+          <a href="/login" class="pull-right">已有账号?</a>
+          <div class="aw-regiter-agreement hide">
+            <div class="aw-register-agreement-txt" id="register_agreement"></div>
+          </div>
+
+        </li>
+        <li class="clearfix">
+          <button class="btn btn-large btn-blue btn-block">
+            注册
+          </button>
+        </li>
+      </ul>
+    </form>
+  </div>
+  <div class="mod-footer"></div>
+</div>
+{{/block}}
+
+{{#block ("foot")}}
+<script>
+
+</script>
+{{/block}}

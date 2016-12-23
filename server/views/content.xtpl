@@ -1,0 +1,138 @@
+{{extend ("./layout")}}
+
+{{#block ("head")}}
+{{/block}}
+
+{{#block ("body")}}
+<div class="aw-container-wrap">
+  <div class="container">
+    <div class="row">
+      <div class="aw-content-wrap clearfix">
+        <div class="col-sm-12 col-md-9 aw-main-content aw-article-content">
+          <div class="aw-mod aw-topic-bar" id="question_topic_editor" data-type="article" data-id="314">
+            <div class="tag-bar clearfix">
+
+
+            </div>
+          </div>
+          <div class="aw-mod aw-question-detail">
+            <div class="mod-head">
+              <h1>
+                vsc更新了 </h1>
+
+            </div>
+            <div class="mod-body">
+              <div class="content markitup-box">
+                <a href="https://code.visualstudio.com/updates#_languages-javascript" rel="nofollow" target="_blank">https://code.visualstudio.com/
+                  ... cript</a>
+dsadsad
+                <p></p>
+              </div>
+              <div class="meta clearfix">
+                <div class="aw-article-vote pull-left disabled">
+                  <a href="javascript:;" class="agree" onclick="AWS.User.article_vote($(this), 314, 1);"><i
+                          class="icon icon-agree"></i> <b>0</b></a>
+                </div>
+
+								<span class="pull-right  more-operate">
+																		<a class="text-color-999" href="http://wenda.golaravel.com/publish/article/314"><i
+                                            class="icon icon-edit"></i> 编辑</a>
+
+
+
+									<em class="text-color-999">1 天前</em>
+								</span>
+
+
+              </div>
+            </div>
+            <div class="mod-footer">
+            </div>
+          </div>
+
+          <!-- 文章评论 -->
+          <div class="aw-mod">
+            <div class="mod-head common-head">
+              <h2>3 个评论</h2>
+            </div>
+
+            <div class="mod-body aw-feed-list">
+              <div class="aw-item">
+                <a class="aw-user-name" href="http://wenda.golaravel.com/people/peng">
+                  <img src="http://wenda.golaravel.com/uploads/avatar/000/00/36/75_avatar_mid.jpg" alt="peng"/>
+                </a>
+                <div class="content">
+                  <p>
+                    <a href="http://wenda.golaravel.com/people/peng">peng</a></p>
+                  <div class="markitup-box">
+                    123
+                  </div>
+                  <div class="meta">
+                    <span class="pull-right text-color-999">31 秒前</span>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+
+          </div>
+          <!-- end 文章评论 -->
+
+          <!-- 回复编辑器 -->
+          <div class="aw-mod aw-article-replay-box">
+            <a name="answer_form"></a>
+            <form action="http://wenda.golaravel.com/article/ajax/save_comment/" onsubmit="return false;" method="post"
+                  id="answer_form">
+              <input type="hidden" name="post_hash" value="d30f6ed9a5915808"/>
+              <input type="hidden" name="article_id" value="314"/>
+              <div class="mod-head">
+                <a href="http://wenda.golaravel.com/people/" class="aw-user-name"><img alt="peng"
+                                                                                       src="http://wenda.golaravel.com/uploads/avatar/000/00/36/75_avatar_mid.jpg"/></a>
+              </div>
+              <div class="mod-body">
+                <textarea rows="3" name="message" id="comment_editor" class="form-control autosize"
+                          placeholder="写下你的评论..."/></textarea>
+              </div>
+              <div class="mod-footer clearfix">
+                <a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'), AWS.ajax_processer, 'reply');"
+                   class="btn btn-normal btn-success pull-right btn-submit">回复</a>
+              </div>
+            </form>
+          </div>
+          <!-- end 回复编辑器 -->
+        </div>
+        <!-- 侧边栏 -->
+        <div class="col-sm-12 col-md-3 aw-side-bar hidden-sm hidden-xs">
+          <!-- 发起人 -->
+          <div class="aw-mod user-detail">
+            <div class="mod-head">
+              <h3>发起人</h3>
+            </div>
+            <div class="mod-body">
+              <dl>
+                <dt class="pull-left aw-border-radius-5">
+                  <a href="http://wenda.golaravel.com/people/peng"><img alt="peng"
+                                                                        src="http://wenda.golaravel.com/uploads/avatar/000/00/36/75_avatar_mid.jpg"/></a>
+                </dt>
+                <dd class="pull-left">
+                  <a class="aw-user-name" href="http://wenda.golaravel.com/people/peng" data-id="3675">peng</a>
+                  <p></p>
+                </dd>
+              </dl>
+            </div>
+            <div class="mod-footer clearfix">
+            </div>
+          </div>
+          <!-- end 发起人 -->
+
+
+
+        </div>
+        <!-- end 侧边栏 -->
+      </div>
+    </div>
+  </div>
+</div>
+{{/block}}

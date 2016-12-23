@@ -1,0 +1,106 @@
+{{extend ("./layout")}}
+
+{{#block ("head")}}
+<link rel="stylesheet" href="/www/vender/markdown/editor.css">
+{{/block}}
+{{#block ("body")}}
+<div class="aw-container-wrap">
+  <div class="container aw-publish aw-publish-article">
+    <div class="row">
+      <div class="aw-content-wrap clearfix">
+        <div class="col-sm-12 col-md-9 aw-main-content">
+          <!-- tab 切换 -->
+
+          <!-- end tab 切换 -->
+          <form action="/article/add" method="post" id="article_form" onsubmit="return false;">
+            <div class="aw-mod aw-mod-publish">
+              <div class="mod-body">
+                <h3>文章标题:</h3>
+                <!-- 文章标题 -->
+                <div class="aw-publish-title active">
+                  <input type="text" name="title" id="article_title" class="form-control"/>
+                </div>
+                <!-- end 文章标题 -->
+
+                <h3>文章内容:</h3>
+                <div class="aw-mod aw-editor-box">
+                  <div class="mod-head">
+                    <div class="wmd-panel">
+                      <div id="wmd-button-bar"></div>
+                      <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15"
+                                name="message"></textarea>
+                    </div>
+                  </div>
+                  <div class="mod-body">
+                    <p class="text-color-999"><span class="pull-right" id="question_detail_message">&nbsp;</span>
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+              </div>
+              <div class="mod-footer clearfix">
+                <a class="btn btn-large btn-success btn-publish-submit" id="publish_submit">确认发起</a>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- 侧边栏 -->
+        <div class="col-sm-12 col-md-3 aw-side-bar hidden-xs">
+          <!-- 文章发起指南 -->
+          <div class="aw-mod publish-help">
+            <div class="mod-head">
+              <h3>文章发起指南</h3>
+            </div>
+            <div class="mod-body">
+              <p><b>• 文章标题:</b> 请用准确的语言描述您发布的文章思想</p>
+              <p><b>• 文章补充:</b> 详细补充您的文章内容, 并提供一些相关的素材以供参与者更多的了解您所要文章的主题思想</p>
+              <p><b>• 选择话题:</b> 选择一个或者多个合适的话题, 让您发布的文章得到更多有相同兴趣的人参与. 所有人可以在您发布文章之后添加和编辑该文章所属的话题</p>
+            </div>
+          </div>
+          <!-- end 文章发起指南 -->
+        </div>
+        <!-- end 侧边栏 -->
+      </div>
+    </div>
+  </div>
+</div>
+{{/block}}
+
+{{#block ("foot")}}
+<script src="/www/vender/markdown/editor.js"></script>
+<script src="/www/vender/markdown/marked.js"></script>
+<script>
+  var editor = new Editor({
+    element: document.querySelector('#wmd-input')
+  });
+
+  editor.render();
+
+
+  var $article_form = $('#article_form');
+  var $publish_submit = $('#publish_submit');
+
+  $publish_submit.on('click', function () {
+    var data = {
+      title: $('#article_title').val(),
+      content: editor.codemirror.getValue()
+    };
+    $.ajax({
+      url: '/article/add',
+      type: 'post',
+      data: data,
+      success: function (data) {
+        if (data.code == 1) {
+          window.location.href = '/';
+        } else {
+          console.log(data.msg);
+        }
+      }
+    });
+  });
+
+</script>
+{{/block}}

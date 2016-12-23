@@ -1,0 +1,153 @@
+{{extend ("./layout")}}
+
+{{#block ("head")}}
+{{/block}}
+
+{{#block ("body")}}
+<div class="aw-container-wrap">
+  <div class="container">
+    <div class="row">
+      <div class="aw-content-wrap clearfix">
+        <div class="col-sm-12 col-md-9 aw-main-content">
+          <div class="aw-mod aw-question-detail aw-item">
+            <div class="mod-head">
+              <h1>
+                求助~控制器路由，提示Not Found The requested URL /msg was not found on this server </h1>
+            </div>
+            <div class="mod-body">
+              <div class="content markitup-box">
+                <h1>文章内容</h1>
+                <h1>文章内容</h1>
+                <h1>文章内容</h1>
+                <h1>文章内容</h1>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="aw-mod aw-question-comment">
+            <div class="mod-head">
+
+            </div>
+            <div class="mod-body aw-feed-list">
+              <div class="aw-item" uninterested_count="0" force_fold="0" id="answer_list_2935">
+                <div class="mod-head">
+                  <a class="anchor" name="answer_2935"></a>
+                  <!-- 用户头像 -->
+                  <a class="aw-user-img aw-border-radius-5 pull-right"
+                     href="http://wenda.golaravel.com/people/qixiaojun" data-id="996"><img
+                          src="http://wenda.golaravel.com/uploads/avatar/000/00/09/96_avatar_mid.jpg" alt=""/></a>
+                  <!-- end 用户头像 -->
+                  <div class="title">
+                    <p>
+                      <a class="aw-user-name" href="http://wenda.golaravel.com/people/qixiaojun"
+                         data-id="996">qixiaojun</a>
+                    </p>
+
+                  </div>
+                </div>
+                <div class="mod-body clearfix">
+                  <!-- 评论内容 -->
+                  <div class="markitup-box">
+                    把网站根目录设置为public就可以了
+                  </div>
+
+
+                  <!-- end 评论内容 -->
+                </div>
+
+              </div>
+            </div>
+            <div class="mod-footer">
+              <div class="aw-load-more-content hide" id="load_uninterested_answers">
+                <span class="text-color-999 aw-alert-box text-color-999" href="javascript:;" tabindex="-1"
+                      onclick="AWS.alert('被折叠的回复是被你或者被大多数用户认为没有帮助的回复');">为什么被折叠?</span>
+                <a href="javascript:;" class="aw-load-more-content"><span class="hide_answers_count">0</span> 个回复被折叠</a>
+              </div>
+
+              <div class="hide aw-feed-list" id="uninterested_answers_list"></div>
+            </div>
+
+          </div>
+          <!-- end 问题详细模块 -->
+
+          <!-- 回复编辑器 -->
+          <div class="aw-mod aw-replay-box question">
+            <a name="answer_form"></a>
+            <form action="http://wenda.golaravel.com/question/ajax/save_answer/" onsubmit="return false;" method="post"
+                  id="answer_form" class="question_answer_form">
+              <input type="hidden" name="post_hash" value="732c538c09f092ea"/>
+              <input type="hidden" name="question_id" value="2006"/>
+              <input type="hidden" name="attach_access_key" value="f35c3847a419fd4373c75763841e6082"/>
+
+              <div class="mod-body">
+                <div class="aw-mod aw-editor-box">
+                  <div class="mod-head">
+                    <div class="wmd-panel">
+                      <div id="wmd-button-bar"></div>
+                      <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15"
+                                name="answer_content"></textarea>
+                    </div>
+                  </div>
+                  <div class="mod-body clearfix">
+                    <a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'), AWS.ajax_processer, 'reply');"
+                       class="btn btn-normal btn-success pull-right">回复</a>
+                    <span class="pull-right text-color-999" id="answer_content_message">&nbsp;</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- end 回复编辑器 -->
+        </div>
+        <!-- 侧边栏 -->
+        <div class="col-md-3 aw-side-bar hidden-xs hidden-sm">
+          <!-- 发起人 -->
+          <div class="aw-mod">
+            <div class="mod-head">
+              <h3>发起人</h3>
+            </div>
+            <div class="mod-body">
+              <dl>
+                <dt class="pull-left aw-border-radius-5">
+                  <a href="http://wenda.golaravel.com/people/%E7%8E%8B%E5%8D%8E%E5%81%A5Ss"><img alt="王华健Ss"
+                                                                                                 src="http://wenda.golaravel.com/static/common/avatar-mid-img.png"/></a>
+                </dt>
+                <dd class="pull-left">
+                  <a class="aw-user-name" href="http://wenda.golaravel.com/people/%E7%8E%8B%E5%8D%8E%E5%81%A5Ss"
+                     data-id="3654">王华健Ss</a>
+                  <p></p>
+                </dd>
+              </dl>
+            </div>
+          </div>
+          <!-- end 发起人 -->
+
+        </div>
+        <!-- end 侧边栏 -->
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/block}}
+
+{{#block ("foot")}}
+<script>
+  $('#btn_login').on('click', function (e) {
+    var data = $('#login_form').serialize();
+    $.ajax({
+      url: '/login',
+      type: 'post',
+      data: data,
+      success: function (data) {
+        if (data.code == 1) {
+          window.location.href = '/';
+        } else {
+          console.log(data);
+        }
+      }
+    })
+  });
+</script>
+{{/block}}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+  <meta name="renderer" content="webkit"/>
+  <title></title>
+  <meta name="keywords" content=""/>
+  <meta name="description" content=""/>
+
+  <link href="/www/img/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+
+  <link rel="stylesheet" type="text/css" href="/www/vender/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" type="text/css" href="/www/css/icon.css"/>
+
+  <link href="/www/css/common.css" rel="stylesheet" type="text/css"/>
+  <link href="/www/css/link.css" rel="stylesheet" type="text/css"/>
+  <link href="/www/css/style.css" rel="stylesheet" type="text/css"/>
+  {{{block ("head")}}}
+</head>
+
+<body>
+{{{include ("./header")}}}
+{{{block ("body")}}}
+{{{include ("./footer")}}}
+<script src="/www/vender/jquery/dist/jquery.js" type="text/javascript"></script>
+<script src="/www/vender/bootstrap/dist/js/bootstrap.js"></script>
+{{{block ("foot")}}}
+</body>
+</html>

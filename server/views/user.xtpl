@@ -1,0 +1,122 @@
+{{extend ("./layout")}}
+
+{{#block ("head")}}
+<link href="/www/css/user.css" rel="stylesheet" type="text/css"/>
+{{/block}}
+
+{{#block ("body")}}
+<div class="aw-container-wrap">
+  <div class="container">
+    <div class="row">
+      <div class="aw-content-wrap clearfix">
+        <div class="col-sm-12 col-md-9 aw-main-content">
+          <!-- 用户数据内容 -->
+          <div class="aw-mod aw-user-detail-box">
+            <div class="mod-head">
+              <img src="http://wenda.golaravel.com/uploads/avatar/000/00/36/75_avatar_max.jpg" alt="peng"/>
+                            <span class="pull-right operate">
+                                                                <a href="http://wenda.golaravel.com/setting/profile/"
+                                                                   class="btn btn-mini btn-success">编辑</a>
+                                                            </span>
+              <h1>peng </h1>
+              <p class="text-color-999"></p>
+              <p class="aw-user-flag">
+              </p>
+            </div>
+
+
+          </div>
+          <!-- end 用户数据内容 -->
+
+          <div class="aw-user-center-tab">
+            <div class="tab-content">
+              <div class="tab-pane active" id="articles">
+                <div class="aw-mod">
+                  <div class="mod-head">
+                    <h3>文章</h3>
+                  </div>
+                  <div class="mod-body">
+                    <div class="aw-profile-publish-list" id="contents_user_actions_articles">
+                      <div class="aw-item">
+                        <div class="aw-mod">
+                          <div class="mod-head">
+                            <h4 class="aw-hide-txt">
+                              <a href="http://wenda.golaravel.com/article/311">测试的撒的撒撒</a>
+                            </h4>
+                          </div>
+                          <div class="mod-body">
+                            <span class="aw-border-radius-5 count pull-left"><i class="icon icon-agree"></i>0</span>
+                            <p class="text-color-999">3 个评论 • 18 次浏览 • 20 小时前</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mod-footer">
+                    <!-- 加载更多内容 -->
+                    <a class="aw-load-more-content" id="bp_user_actions_articles_more">
+                      <span>更多</span>
+                    </a>
+                    <!-- end 加载更多内容 -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 侧边栏 -->
+        <div class="col-sm-12 col-md-3 aw-side-bar">
+          <div class="aw-mod people-following">
+            <div class="mod-body">
+              <a onclick="$('#page_focus').click();$('#focus .aw-tabs ul li').eq(0).click();$.scrollTo($('#focus').offset()['top'], 600, {queue:true})"
+                 class="pull-right font-size-12">更多 »</a>
+                            <span>
+                                关注 <em class="aw-text-color-blue">0</em> 人                            </span>
+            </div>
+          </div>
+          <div class="aw-mod people-following">
+            <div class="mod-body">
+              <a onclick="$('#page_focus').click();$('#focus .aw-tabs ul li').eq(1).click();$.scrollTo($('#focus').offset()['top'], 600, {queue:true})"
+                 class="pull-right font-size-12">更多 »</a>
+                            <span>
+                                被 <em class="aw-text-color-blue">0</em> 人关注                            </span>
+
+            </div>
+
+          </div>
+          <div class="aw-mod people-following">
+            <div class="mod-body">
+              关注 <em class="aw-text-color-blue">1</em> 话题
+              <div class="aw-topic-bar">
+                <div class="tag-bar clearfix">
+                                                                            <span class="topic-tag">
+                                            <a href="http://wenda.golaravel.com/topic/hedsa" class="text"
+                                               data-id="1069">hedsa</a>
+                                        </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="aw-mod">
+
+            <div class="mod-body">
+                            <span class="aw-text-color-666">
+                                主页访问量 : 8 次访问                            </span>
+            </div>
+
+          </div>
+        </div>
+        <!-- end 侧边栏 -->
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/block}}
+
+{{#block ("foot")}}
+<script>
+
+</script>
+{{/block}}
