@@ -11,8 +11,7 @@
       <div class="content pull-left">
         <h1 class="logo"><a href=""></a></h1>
         <h2></h2>
-        <form id="login_form" method="post" onsubmit="return false"
-              action="http://wenda.golaravel.com/account/ajax/login_process/">
+        <form id="login_form" method="post" action="/account/login">
           <input type="hidden" name="return_url" value=""/>
           <ul>
             <li>
@@ -27,7 +26,7 @@
               <i class="icon icon-delete"></i> <em></em>
             </li>
             <li class="last">
-              <a href="javascript:;" id="btn_login" class="pull-right btn btn-large btn-primary">登录</a>
+              <input type="submit" class="pull-right btn btn-large btn-primary" value="登陆">
               <label>
                 <input type="checkbox" value="1" name="net_auto_login"/>
                 记住我 </label>
@@ -54,6 +53,28 @@
 
 {{#block ("foot")}}
 <script>
+  var $form = $('#login_form');
+  $form.on('submit',function(e){
+    e.preventDefault();
+    var url = $(this).attr('action');
+    var method = $(this).attr('method');
 
+    $.ajax({
+      url:url,
+      type:method,
+      data: $form.serialize(),
+      dataType: 'json',
+      success: function(data){
+        if(data && data.code == 1){
+          window.location.href = '/home';
+        }else{
+          alert(JSON.stringify(data));
+        }
+      },
+      error:function(){
+        alert('err');
+      }
+    });
+  });
 </script>
 {{/block}}

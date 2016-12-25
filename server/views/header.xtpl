@@ -53,33 +53,33 @@
 
     <!-- 用户栏 -->
     <div class="aw-user-nav">
+      {{#if (user)}}
+      <a href="http://wenda.golaravel.com/people/peng" class="aw-user-nav-dropdown">
+        <img alt="peng" src="http://wenda.golaravel.com/uploads/avatar/000/00/36/75_avatar_mid.jpg"/>
+      </a>
 
-
-      <!--<a href="http://wenda.golaravel.com/people/peng" class="aw-user-nav-dropdown">-->
-        <!--<img alt="peng" src="http://wenda.golaravel.com/uploads/avatar/000/00/36/75_avatar_mid.jpg"/>-->
-      <!--</a>-->
-      <!--<div class="aw-dropdown dropdown-list pull-right">-->
-        <!--<ul class="aw-dropdown-list">-->
-          <!--<li class="hidden-xs"><a href="http://wenda.golaravel.com/setting/profile/"><i class="icon icon-setting"></i>-->
-            <!--设置</a></li>-->
-          <!--<li><a href="/logout"><i class="icon icon-logout"></i> 退出</a></li>-->
-        <!--</ul>-->
-      <!--</div>-->
-
+      <div class="aw-dropdown dropdown-list pull-right">
+        <ul class="aw-dropdown-list">
+          <li class="hidden-xs"><a href="http://wenda.golaravel.com/setting/profile/"><i class="icon icon-setting"></i>
+            设置</a></li>
+          <li><a href="/logout"><i class="icon icon-logout"></i> 退出</a></li>
+        </ul>
+      </div>
+        {{else}}
       <!-- 登陆&注册栏 -->
       <span>
-        <a class="register btn btn-normal btn-success" href="/reg">注册</a>
-        <a class="login btn btn-normal btn-primary" href="/login">登录</a>
+        <a class="register btn btn-normal btn-success" href="/account/register">注册</a>
+        <a class="login btn btn-normal btn-primary" href="/account/login">登录</a>
       </span>
       <!-- end 登陆&注册栏 -->
-
+      {{/if}}
     </div>
     <!-- end 用户栏 -->
 
     {{#if (user)}}
     <!-- 发起 -->
     <div class="aw-publish-btn">
-      <a id="header_publish" href="/article/add" class="btn-primary"><i
+      <a id="header_publish" href="/article/publish" class="btn-primary"><i
               class="icon icon-ask"></i>发起</a>
     </div>
     <!-- end 发起 -->

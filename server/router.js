@@ -3,7 +3,7 @@
  * @FileName: router.js 						   
  * @Date:   2016-12-20 15:49:04 						   
  * @Last Modified by:   taoyage 	   
- * @Last Modified time: 2016-12-22 21:30:01 	   
+ * @Last Modified time: 2016-12-25 22:22:34 	   
  */
 
 'use strict';
@@ -15,11 +15,14 @@ import user from './controllers/user';
 
 
 export default (router) => {
-	
+
     //================首页路由=================
     router.use('/home', index);
 
     //===============登陆,注册路由==============
     router.use('/account', user);
+
+    //===============文章页面路由==============
+    router.use('/article', article);
 
 };

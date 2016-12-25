@@ -24,7 +24,11 @@
     "ccap": "^0.6.10",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "formidable": "^1.0.17",
+    "moment": "^2.17.1",
     "mysql": "^2.12.0",
+    "utility": "^1.9.0",
     "xtemplate": "^4.6.0",
     "xtpl": "^3.3.0"
   }

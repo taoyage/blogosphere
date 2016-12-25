@@ -62,5 +62,30 @@
 {{#block ("foot")}}
 <script>
 
+    var $form = $('#register_form');
+    $form.on('submit',function(e){
+      e.preventDefault();
+      var url = $(this).attr('action');
+      var method = $(this).attr('method');
+      $.ajax({
+        url : url,
+        type : method,
+        data: $form.serialize(),
+        dataType : 'json',
+        success : function(data){
+          if(data && data.code == 1){
+            console.log(data);
+            window.location.href = '/home';
+          }else{
+            alert(JSON.stringify(data));
+          }
+        },
+        err:function(){
+          alert('注册失败');
+        }
+      })
+    })
+
+
 </script>
 {{/block}}

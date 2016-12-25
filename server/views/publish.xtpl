@@ -12,13 +12,13 @@
           <!-- tab 切换 -->
 
           <!-- end tab 切换 -->
-          <form action="/article/add" method="post" id="article_form" onsubmit="return false;">
+          <form action="/article/publish" method="post" id="article_form">
             <div class="aw-mod aw-mod-publish">
               <div class="mod-body">
                 <h3>文章标题:</h3>
                 <!-- 文章标题 -->
                 <div class="aw-publish-title active">
-                  <input type="text" name="title" id="article_title" class="form-control"/>
+                  <input type="text" name="title" id="title" class="form-control"/>
                 </div>
                 <!-- end 文章标题 -->
 
@@ -42,7 +42,7 @@
 
               </div>
               <div class="mod-footer clearfix">
-                <a class="btn btn-large btn-success btn-publish-submit" id="publish_submit">确认发起</a>
+                <input type="submit" class="btn btn-large btn-success btn-publish-submit" value="确认发起">
               </div>
             </div>
           </form>
@@ -80,26 +80,33 @@
   editor.render();
 
 
-  var $article_form = $('#article_form');
-  var $publish_submit = $('#publish_submit');
+  var $form = $('#article_form');
 
-  $publish_submit.on('click', function () {
-    var data = {
-      title: $('#article_title').val(),
-      content: editor.codemirror.getValue()
-    };
+  $form.on('submit', function (e) {
+    e.preventDefault();
+
+    var url = $(this).attr('action');
+    var method = $(this).attr('method');
+    var title = $('#title').val().trim();
+    var content = editor.codemirror.getValue();
+
     $.ajax({
-      url: '/article/add',
-      type: 'post',
-      data: data,
-      success: function (data) {
-        if (data.code == 1) {
-          window.location.href = '/';
-        } else {
-          console.log(data.msg);
+      url : url,
+      type : method,
+      data : {
+        title : title,
+        content : content
+      },
+      dataType: 'json',
+      success: function(data){
+        if(data && data.code == 1){
+          window.location.href = '/article/details/' + data.msg;
         }
+      },
+      error : function(){
+        alert('err');
       }
-    });
+    })
   });
 
 </script>
