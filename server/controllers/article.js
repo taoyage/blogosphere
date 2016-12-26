@@ -3,17 +3,22 @@
  * @FileName: article.js 						   
  * @Date:   2016-12-20 16:45:59 						   
  * @Last Modified by:   taoyage 	   
- * @Last Modified time: 2016-12-26 00:22:38 	   
+ * @Last Modified time: 2016-12-26 22:14:12 	   
  * @description 文章相关路由模块 	   
  */
 
 'use strict';
 
 import express from 'express';
+import fs from 'fs';
+import path from 'path';
 import formidable from 'formidable';
 import moment from 'moment';
+import MarkdownIt from 'markdown-it';
 import Article from '../models/article.js';
+
 const router = express.Router();
+const md = new MarkdownIt();
 
 /**
  * 渲染文章页面
@@ -23,6 +28,7 @@ router.get('/details/:id', (req, res, next) => {
         if (err) {
             return next(err);
         }
+        result.content = md.render(result.content);
         res.render('article', {
             article: result,
             user: req.session.user
@@ -70,6 +76,30 @@ router.post('/publish', (req, res, next) => {
         return res.json({
             code: '1',
             msg: result.insertId
+        });
+    });
+});
+
+/**
+ * 处理文件上传
+ */
+router.post('/upload', (req, res, next) => {
+    let form = new formidable.IncomingForm();
+    form.uploadDir = req.app.locals.config.uploadDir;
+    form.parse(req, function(err, fields, files) {
+        if (err) {
+            return res.json({
+                code: '0',
+                msg: '文件上传失败'
+            });
+        }
+        let oldPath = files.pic.path;
+        let newPath = oldPath + path.extname(files.pic.name);
+        fs.rename(oldPath, newPath, () => {
+            res.json({
+                code: '1',
+                msg: `/uploads/${path.basename(newPath)}`
+            });
         });
     });
 });

@@ -3,7 +3,7 @@
  * @FileName: user.js                          
  * @Date:   2016-12-20 16:45:44                            
  * @Last Modified by:   taoyage        
- * @Last Modified time: 2016-12-26 00:00:51        
+ * @Last Modified time: 2016-12-26 20:15:53        
  */
 
 'use strict';
@@ -32,22 +32,22 @@ router.get('/login', (req, res, next) => {
  */
 router.post('/login', (req, res, next) => {
     let [username, password] = [req.body.username, utils.md5(req.body.password)];
-    User.queryUser(username, (err, result) => {
+    User.queryUser(username, (err, row) => {
         if (err) {
             return next(err);
-        } else if (!result) {
-            return req.json({
+        } else if (!row) {
+            return res.json({
                 code: '0',
                 msg: '此用户名不存在'
             })
         }
-        if (password != result.password) {
+        if (password != row.password) {
             return res.json({
                 code: '0',
                 msg: '密码错误'
             })
         }
-        req.session.user = result;
+        req.session.user = row;
         return res.json({
             code: '1',
             msg: '登陆成功'
@@ -86,10 +86,10 @@ router.post('/register', (req, res, next) => {
         });
     }
 
-    User.queryUser(username, (err, result) => {
+    User.queryUser(username, (err, row) => {
         if (err) {
             return next(err);
-        } else if (result) {
+        } else if (row) {
             return res.json({
                 code: '0',
                 msg: '用户名已存在'
@@ -106,7 +106,9 @@ router.post('/register', (req, res, next) => {
                     msg: 'failed'
                 });
             }
+            user.id = result.insertId;
             req.session.user = user;
+            console.log(req.session.user);
             return res.json({
                 code: '1',
                 msg: '注册成功'

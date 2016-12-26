@@ -2,7 +2,7 @@
 * @Author: taoyage
 * @Date:   2016-12-20 23:15:13
 * @Last Modified by:   taoyage
-* @Last Modified time: 2016-12-20 23:31:41
+* @Last Modified time: 2016-12-26 19:56:21
 */
 
 CREATE DATABASE IF NOT EXISTS blogosphere;
@@ -14,7 +14,7 @@ CREATE TABLE users(
 	username VARCHAR(20) NOT NULL,
 	password VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL
-);
+)engine=MyISAM charset=utf8;
 
 CREATE TABLE articles(
 	id INT PRIMARY KEY auto_increment,
@@ -22,7 +22,7 @@ CREATE TABLE articles(
 	content TEXT NOT NULL,
 	time DATETIME NOT NULL,
 	uid INT NOT NULL
-);
+)engine=MyISAM charset=utf8;
 
 CREATE TABLE comments(
 	id INT PRIMARY KEY auto_increment,
@@ -30,4 +30,4 @@ CREATE TABLE comments(
 	time DATETIME NOT NULL,
 	uid INT NOT NULL,
 	aid INT NOT NULL
-);
+)engine=MyISAM charset=utf8;

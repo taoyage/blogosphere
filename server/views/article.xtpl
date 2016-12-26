@@ -11,15 +11,11 @@
         <div class="col-sm-12 col-md-9 aw-main-content">
           <div class="aw-mod aw-question-detail aw-item">
             <div class="mod-head">
-              <h1>
-                求助~控制器路由，提示Not Found The requested URL /msg was not found on this server </h1>
+              <h1>{{article.title}}</h1>
             </div>
             <div class="mod-body">
               <div class="content markitup-box">
-                <h1>文章内容</h1>
-                <h1>文章内容</h1>
-                <h1>文章内容</h1>
-                <h1>文章内容</h1>
+                {{{article.content}}}
               </div>
             </div>
 

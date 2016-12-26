@@ -3,7 +3,7 @@
  * @FileName: app.js 						   
  * @Date:   2016-12-20 14:32:28 						   
  * @Last Modified by:   taoyage 	   
- * @Last Modified time: 2016-12-24 17:28:16 	   
+ * @Last Modified time: 2016-12-26 22:56:34 	   
  */
 
 'use strict';
@@ -12,8 +12,15 @@ import path from 'path';
 import express from 'express';
 const app = express();
 
+
+// ===== 注入配置信息 =====
+import config from './config'
+app.locals.config = config;
+
+
 //===============设置静态文件目录================
 app.use('/www', express.static(path.join(__dirname, '../www')));
+app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 
 
 //================设置模版引擎==================
@@ -51,7 +58,7 @@ router(app);
 // =========================================================================== //
 
 app.listen(3000, () => {
-    console.log('server run in port 3000');
+    console.log(`server running in http://localhost:${config.port}/`);
 });
 
 // =========================================================================== //

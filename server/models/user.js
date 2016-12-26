@@ -3,7 +3,7 @@
  * @FileName: user.js                          
  * @Date:   2016-12-23 18:18:35                            
  * @Last Modified by:   taoyage        
- * @Last Modified time: 2016-12-26 00:15:27        
+ * @Last Modified time: 2016-12-26 19:33:29        
  */
 
 'use strict';

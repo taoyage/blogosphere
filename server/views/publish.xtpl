@@ -1,88 +1,100 @@
-{{extend ("./layout")}}
-
-{{#block ("head")}}
-<link rel="stylesheet" href="/www/vender/markdown/editor.css">
-{{/block}}
-{{#block ("body")}}
+{{extend ("./layout")}} {{#block ("head")}}
+<link rel="stylesheet" href="/www/vender/markdown/editor.css"> {{/block}} {{#block ("body")}}
 <div class="aw-container-wrap">
-  <div class="container aw-publish aw-publish-article">
-    <div class="row">
-      <div class="aw-content-wrap clearfix">
-        <div class="col-sm-12 col-md-9 aw-main-content">
-          <!-- tab 切换 -->
-
-          <!-- end tab 切换 -->
-          <form action="/article/publish" method="post" id="article_form">
-            <div class="aw-mod aw-mod-publish">
-              <div class="mod-body">
-                <h3>文章标题:</h3>
-                <!-- 文章标题 -->
-                <div class="aw-publish-title active">
-                  <input type="text" name="title" id="title" class="form-control"/>
+    <div class="container aw-publish aw-publish-article">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class="col-sm-12 col-md-9 aw-main-content">
+                    <!-- tab 切换 -->
+                    <!-- end tab 切换 -->
+                    <form action="/article/publish" method="post" id="article_form">
+                        <div class="aw-mod aw-mod-publish">
+                            <div class="mod-body">
+                                <h3>文章标题:</h3>
+                                <!-- 文章标题 -->
+                                <div class="aw-publish-title active">
+                                    <input type="text" name="title" id="title" class="form-control" />
+                                </div>
+                                <!-- end 文章标题 -->
+                                <h3>文章内容:</h3>
+                                <div class="aw-mod aw-editor-box">
+                                    <div class="mod-head">
+                                        <div class="wmd-panel">
+                                            <div id="wmd-button-bar"></div>
+                                            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="message"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mod-body">
+                                        <p class="text-color-999"><span class="pull-right" id="question_detail_message">&nbsp;</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mod-footer clearfix">
+                                <input type="submit" class="btn btn-large btn-success btn-publish-submit" value="确认发起">
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <!-- end 文章标题 -->
-
-                <h3>文章内容:</h3>
-                <div class="aw-mod aw-editor-box">
-                  <div class="mod-head">
-                    <div class="wmd-panel">
-                      <div id="wmd-button-bar"></div>
-                      <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15"
-                                name="message"></textarea>
+                <!-- 侧边栏 -->
+                <div class="col-sm-12 col-md-3 aw-side-bar hidden-xs">
+                    <!-- 文章发起指南 -->
+                    <div class="aw-mod publish-help">
+                        <div class="mod-head">
+                            <h3>文章发起指南</h3>
+                        </div>
+                        <div class="mod-body">
+                            <p><b>• 文章标题:</b> 请用准确的语言描述您发布的文章思想</p>
+                            <p><b>• 文章补充:</b> 详细补充您的文章内容, 并提供一些相关的素材以供参与者更多的了解您所要文章的主题思想</p>
+                            <p><b>• 选择话题:</b> 选择一个或者多个合适的话题, 让您发布的文章得到更多有相同兴趣的人参与. 所有人可以在您发布文章之后添加和编辑该文章所属的话题</p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="mod-body">
-                    <p class="text-color-999"><span class="pull-right" id="question_detail_message">&nbsp;</span>
-                    </p>
-
-                  </div>
-
+                    <!-- end 文章发起指南 -->
                 </div>
-
-
-              </div>
-              <div class="mod-footer clearfix">
-                <input type="submit" class="btn btn-large btn-success btn-publish-submit" value="确认发起">
-              </div>
+                <!-- end 侧边栏 -->
             </div>
-          </form>
         </div>
-        <!-- 侧边栏 -->
-        <div class="col-sm-12 col-md-3 aw-side-bar hidden-xs">
-          <!-- 文章发起指南 -->
-          <div class="aw-mod publish-help">
-            <div class="mod-head">
-              <h3>文章发起指南</h3>
-            </div>
-            <div class="mod-body">
-              <p><b>• 文章标题:</b> 请用准确的语言描述您发布的文章思想</p>
-              <p><b>• 文章补充:</b> 详细补充您的文章内容, 并提供一些相关的素材以供参与者更多的了解您所要文章的主题思想</p>
-              <p><b>• 选择话题:</b> 选择一个或者多个合适的话题, 让您发布的文章得到更多有相同兴趣的人参与. 所有人可以在您发布文章之后添加和编辑该文章所属的话题</p>
-            </div>
-          </div>
-          <!-- end 文章发起指南 -->
-        </div>
-        <!-- end 侧边栏 -->
-      </div>
     </div>
-  </div>
 </div>
-{{/block}}
-
-{{#block ("foot")}}
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">上传图片</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">请选择要上传的图片</label>
+                        <input type="file" class="form-control" id="pic_file">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="btn_upload" class="btn btn-primary">点击上传</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{{/block}} {{#block ("foot")}}
 <script src="/www/vender/markdown/editor.js"></script>
 <script src="/www/vender/markdown/marked.js"></script>
 <script>
-  var editor = new Editor({
+var editor = new Editor({
     element: document.querySelector('#wmd-input')
-  });
+});
 
-  editor.render();
+editor.render();
 
+/*文章提交*/
+var $form = $('#article_form');
 
-  var $form = $('#article_form');
-
-  $form.on('submit', function (e) {
+$form.on('submit', function(e) {
     e.preventDefault();
 
     var url = $(this).attr('action');
@@ -91,23 +103,55 @@
     var content = editor.codemirror.getValue();
 
     $.ajax({
-      url : url,
-      type : method,
-      data : {
-        title : title,
-        content : content
-      },
-      dataType: 'json',
-      success: function(data){
-        if(data && data.code == 1){
-          window.location.href = '/article/details/' + data.msg;
+        url: url,
+        type: method,
+        data: {
+            title: title,
+            content: content
+        },
+        dataType: 'json',
+        success: function(data) {
+            if (data && data.code == 1) {
+                window.location.href = '/article/details/' + data.msg;
+            }
+        },
+        error: function() {
+            alert('err');
         }
-      },
-      error : function(){
-        alert('err');
-      }
     })
-  });
+});
 
+/*模态框*/
+$('.editor-toolbar > .icon-image').on('click', function(e) {
+    e.preventDefault();
+    $('#myModal').modal();
+});
+
+/*图片上传*/
+$('#btn_upload').on('click', function() {
+    var formData = new FormData();
+    formData.append('pic', document.querySelector('#pic_file').files[0]);
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('post', '/article/upload');
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var data = JSON.parse(xhr.responseText);
+
+            if (data && data.code == 1) {
+                var src = data.msg;
+                var content = editor.codemirror.getValue();
+                content = content + '![图片](http://127.0.0.1:3000' + src + ')';
+
+                editor.codemirror.setValue(content);
+
+                $('#myModal').modal('hide');
+            }
+        }
+    };
+    xhr.send(formData);
+});
 </script>
 {{/block}}
