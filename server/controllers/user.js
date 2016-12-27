@@ -3,7 +3,7 @@
  * @FileName: user.js                          
  * @Date:   2016-12-20 16:45:44                            
  * @Last Modified by:   taoyage        
- * @Last Modified time: 2016-12-26 20:15:53        
+ * @Last Modified time: 2016-12-27 23:47:18        
  */
 
 'use strict';
@@ -20,7 +20,7 @@ const captcha = ccap();
 /**
  * 登陆页面渲染
  */
-router.get('/login', (req, res, next) => {
+router.get('/login', (req, res) => {
     if (req.session.user) {
         return res.redirect('/home');
     }
@@ -28,42 +28,49 @@ router.get('/login', (req, res, next) => {
 });
 
 /**
- * 登陆模块业务处理
- */
-router.post('/login', (req, res, next) => {
-    let [username, password] = [req.body.username, utils.md5(req.body.password)];
-    User.queryUser(username, (err, row) => {
-        if (err) {
-            return next(err);
-        } else if (!row) {
-            return res.json({
-                code: '0',
-                msg: '此用户名不存在'
-            })
-        }
-        if (password != row.password) {
-            return res.json({
-                code: '0',
-                msg: '密码错误'
-            })
-        }
-        req.session.user = row;
-        return res.json({
-            code: '1',
-            msg: '登陆成功'
-        });
-    });
-});
-
-
-/**
  * 注册页面渲染
  */
-router.get('/register', (req, res, next) => {
+router.get('/register', (req, res) => {
     if (req.session.user) {
         return res.redirect('/home');
     }
     res.render('register');
+});
+
+/**
+ * 登陆模块业务处理
+ */
+router.post('/login', (req, res) => {
+    let [username, password] = [req.body.username, utils.md5(req.body.password)];
+    User.queryUser(username)
+        .then(result => {
+            if (!result) {
+                return res.json({
+                    code: '0',
+                    msg: 'username not exists'
+                })
+            }
+            if (password != result.password) {
+                return res.json({
+                    code: '0',
+                    msg: 'password err'
+                })
+            }
+            return res.json({
+                code: '1',
+                msg: 'login success'
+            })
+        })
+        .catch(err => {
+            res.json({
+                code: '1',
+                msg: err.message
+            })
+        })
+});
+
+router.get('/logout', (req, res, next) => {
+    req.session.user = '';
 });
 
 
@@ -71,50 +78,52 @@ router.get('/register', (req, res, next) => {
  * 注册模块业务处理
  */
 router.post('/register', (req, res, next) => {
-    let [username, password, email, vcode, session_vcode] = [
+    let [username, password, email,vcode] = [
         req.body.username,
         utils.md5(req.body.password),
         req.body.email,
-        req.body.vcode,
-        req.session.vcode
+        req.body.vcode
     ];
 
-    if (vcode.toLowerCase() !== session_vcode.toLowerCase()) {
+    if (vcode !== req.session.vcode) {
         return res.json({
             code: '0',
-            msg: '验证码不正确'
+            msg: 'vcode invalid error'
         });
     }
 
-    User.queryUser(username, (err, row) => {
-        if (err) {
-            return next(err);
-        } else if (row) {
-            return res.json({
-                code: '0',
-                msg: '用户名已存在'
-            });
-        }
-        let user = new User({ username, password, email });
-        user.insertUser((err, result) => {
-            if (err) {
-                return next(err);
-            }
-            if (result.insertId === 0) {
+    let user = new User(username, password, email);
+
+    User.queryUser(username)
+        .then(result => {
+            if (result) {
                 return res.json({
-                    code: 0,
-                    msg: 'failed'
-                });
+                    code: '0',
+                    msg: 'username already exists'
+                })
             }
-            user.id = result.insertId;
+            return user.insertUser();
+        })
+        .then(rows => {
+            if (rows.affectedRows === 0) {
+                return res.json({
+                    code: '0',
+                    msg: 'failed'
+                })
+            }
+            user.id = rows.insertId;
             req.session.user = user;
-            console.log(req.session.user);
-            return res.json({
+            res.json({
                 code: '1',
-                msg: '注册成功'
+                msg: 'success'
             })
-        });
-    });
+        })
+        .catch(err => {
+            res.json({
+                code: '0',
+                msg: err.message
+            })
+        })
 });
 
 /**
@@ -125,6 +134,10 @@ router.get('/captcha', (req, res, next) => {
     let [txt, buf] = [ary[0], ary[1]];
     req.session.vcode = txt;
     res.send(buf);
+});
+
+router.get('/setting', (req, res, next) => {
+    res.render('setting');
 });
 
 export default router;

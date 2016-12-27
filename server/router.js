@@ -3,7 +3,8 @@
  * @FileName: router.js 						   
  * @Date:   2016-12-20 15:49:04 						   
  * @Last Modified by:   taoyage 	   
- * @Last Modified time: 2016-12-26 21:25:06 	   
+ * @Last Modified time: 2016-12-27 20:23:43 	   
+ * @discription : Routing configuration	   
  */
 
 'use strict';
