@@ -1,84 +1,110 @@
-{{extend ("./layout")}}
-{{#block ("body")}}
+{{extend ("./layout")}} {{#block ("body")}}
 <div class="aw-container-wrap">
-  <div class="container">
-    <div class="row">
-      <div class="aw-content-wrap clearfix">
-        <div class="col-sm-12 col-md-9 aw-main-content">
-          <div class="aw-mod aw-explore-list">
-            <div class="mod-body">
-              <div class="aw-common-list">
-
-                {{#each (articles)}}
-                <div class="aw-item active" data-topic-id="57,">
-                  <a class="aw-user-name hidden-xs" data-id="3654"
-                     href="http://wenda.golaravel.com/people/%E7%8E%8B%E5%8D%8E%E5%81%A5Ss"
-                     rel="nofollow"><img
-                          src="http://wenda.golaravel.com/static/common/avatar-max-img.png"
-                          alt=""/></a>
-                  <div class="aw-question-content">
-                    <h4>
-                      <a href="http://wenda.golaravel.com/question/2006">{{this.title}}</a>
-                    </h4>
-
-
-                    <p>作者：
-                      <a href="/u/{{this.username}}"
-                         class="aw-user-name">{{this.username}}</a>
-				<span class="text-color-999">• 0 个回复 • {{this.time}}
-				</span>
-                    </p>
-
-                  </div>
+    <div class="container">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class="col-sm-12 col-md-9 aw-main-content">
+                    <div class="aw-mod aw-explore-list">
+                        <div class="mod-body">
+                            <div class="aw-common-list" id="postList">
+                                <div class="aw-item " data-topic-id="922,496,">
+                                    <!--  <a class="aw-user-name hidden-xs"></a>
+                                    <div class="aw-question-content">
+                                        <h4>
+                                          <a href="#"></a>
+                                        </h4>
+                                        <div class="pull-right hidden-xs contribute">
+                                            <span class="pull-right text-color-999"></span>
+                                            <a class="aw-user-name">
+                                                <img src="#" alt=""></a>
+                                        </div>
+                                        <p>
+                                            <a href="#" class="aw-user-name"></a>
+                                            <span class="text-color-999">回复了问题 • 2 人关注 • 1 个回复 • 912 次浏览 • 2016-12-03 11:40       </span>
+                                            <span class="text-color-999 related-topic hide"> •  来自相关话题</span>
+                                        </p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mod-footer">
+                            <div class="page-control">
+                                <ul id="pagination-demo" class="pagination pull-right">
+                                    <li class="active"><a href="javascript:;">1</a></li>
+                                    <li>
+                                        <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-2">2</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-3">3</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-4">4</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-2">&gt;</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-42">&gt;&gt;</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                {{/each}}
-
-              </div>
             </div>
-            <div class="mod-footer">
-              <div class="page-control">
-                <ul id="pagination-demo" class="pagination pull-right">
-                  <li class="active"><a href="javascript:;">1</a></li>
-                  <li>
-                    <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-2">2</a>
-                  </li>
-                  <li>
-                    <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-3">3</a>
-                  </li>
-                  <li>
-                    <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-4">4</a>
-                  </li>
-                  <li>
-                    <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-2">
-                      &gt;</a></li>
-                  <li>
-                    <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-42">
-                      &gt;&gt;</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </div>
-
-      </div>
     </div>
-  </div>
 </div>
-{{/block}}
-
-{{#block ("foot")}}
+{{/block}} {{#block ("foot")}}
 <script src="/www/vender/jquery-pagination/jquery.twbsPagination.js"></script>
 <script>
-  $('#pagination-demo').twbsPagination({
+var postAmount = 10;
+var html = '';
+var postList = document.getElementById('postList');
+
+$('#pagination-demo').twbsPagination({
     totalPages: 35,
     visiblePages: 5,
     first: '<<',
     prev: '<',
     next: '>',
     last: '>>',
-    onPageClick: function (event, page) {
-      $('#page-content').text('Page ' + page);
+    onPageClick: function(event, page) {
+        $('#page-content').text('Page ' + page);
+        getPosts(page);
     }
-  });
+});
+
+function getPosts(pageNum) {
+    $.ajax({
+        url: 'article/page/' + pageNum + '/' + postAmount,
+        type: 'get',
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+            data.posts.forEach(
+                function(posts) {
+                    html += '<div class="aw-item">';
+                    html += '<a class="aw-user-name hidden-xs"><img src='+ 'uploads/' +posts.avatar +' alt=""></a>';
+                    html += '<div class="aw-question-content">';
+                    html += '<h4>';
+                    html += '<a href="/article/details/'+ posts.id +'">'+ posts.title +'</a>';
+                    html += '</h4>';
+                    html += '<div class="pull-right hidden-xs contribute">';
+                    html += '<span class="pull-right text-color-999"></span>';
+                    html += '<a class="aw-user-name"></a>';
+                    html += '</div>';
+                    html += '<p>';
+                    html += '<a href="#" class="aw-user-name">'+ posts.username +'</a>';
+                    html += '<span class="text-color-999">回复了问题 • 2 人关注 • 1 个回复 • 912 次浏览 • '+ posts.time +'</span>';
+                    html += '<span class="text-color-999 related-topic hide"> •  来自相关话题</span>';
+                    html += '</p>';
+                    html += '</div>';
+                    html += '</div>'
+                });
+            postList.innerHTML = html;
+        }
+    })
+}
 </script>
 {{/block}}

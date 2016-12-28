@@ -75,7 +75,7 @@
         success : function(data){
           if(data && data.code == 1){
             console.log(data);
-            window.location.href = '/home';
+            window.location.href = '/';
           }else{
             alert(JSON.stringify(data));
           }

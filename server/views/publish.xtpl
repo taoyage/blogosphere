@@ -112,7 +112,7 @@ $form.on('submit', function(e) {
         dataType: 'json',
         success: function(data) {
             if (data && data.code == 1) {
-                window.location.href = '/article/details/' + data.msg;
+                window.location.href = '/article/details/' + data.id;
             }
         },
         error: function() {

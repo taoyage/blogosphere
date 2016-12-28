@@ -3,7 +3,7 @@
  * @FileName: router.js 						   
  * @Date:   2016-12-20 15:49:04 						   
  * @Last Modified by:   taoyage 	   
- * @Last Modified time: 2016-12-27 20:23:43 	   
+ * @Last Modified time: 2016-12-28 19:33:48 	   
  * @discription : Routing configuration	   
  */
 
@@ -18,7 +18,7 @@ import user from './controllers/user';
 export default (router) => {
 
     //================首页路由=================
-    router.use('/home', index);
+    router.use('/', index);
 
     //===============登陆,注册路由==============
     router.use('/account', user);

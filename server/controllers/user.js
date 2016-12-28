@@ -3,7 +3,7 @@
  * @FileName: user.js                          
  * @Date:   2016-12-20 16:45:44                            
  * @Last Modified by:   taoyage        
- * @Last Modified time: 2016-12-27 23:47:18        
+ * @Last Modified time: 2016-12-28 22:51:41        
  */
 
 'use strict';
@@ -22,7 +22,7 @@ const captcha = ccap();
  */
 router.get('/login', (req, res) => {
     if (req.session.user) {
-        return res.redirect('/home');
+        return res.redirect('/');
     }
     res.render('login');
 });
@@ -32,7 +32,7 @@ router.get('/login', (req, res) => {
  */
 router.get('/register', (req, res) => {
     if (req.session.user) {
-        return res.redirect('/home');
+        return res.redirect('/');
     }
     res.render('register');
 });
@@ -44,7 +44,7 @@ router.post('/login', (req, res) => {
     let [username, password] = [req.body.username, utils.md5(req.body.password)];
     User.queryUser(username)
         .then(result => {
-            if (!result) {
+            if (!result) {      
                 return res.json({
                     code: '0',
                     msg: 'username not exists'
@@ -56,6 +56,7 @@ router.post('/login', (req, res) => {
                     msg: 'password err'
                 })
             }
+            req.session.user = result;
             return res.json({
                 code: '1',
                 msg: 'login success'
@@ -70,7 +71,7 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/logout', (req, res, next) => {
-    req.session.user = '';
+    req.session.user = null;
 });
 
 
@@ -78,7 +79,7 @@ router.get('/logout', (req, res, next) => {
  * 注册模块业务处理
  */
 router.post('/register', (req, res, next) => {
-    let [username, password, email,vcode] = [
+    let [username, password, email, vcode] = [
         req.body.username,
         utils.md5(req.body.password),
         req.body.email,

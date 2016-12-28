@@ -1,10 +1,10 @@
 /*
  * @Author: taoyage
- * @FileName: article.js 						   
- * @Date:   2016-12-20 16:45:59 						   
- * @Last Modified by:   taoyage 	   
- * @Last Modified time: 2016-12-26 22:14:12 	   
- * @description 文章相关路由模块 	   
+ * @FileName: article.js                           
+ * @Date:   2016-12-20 16:45:59                            
+ * @Last Modified by:   taoyage        
+ * @Last Modified time: 2016-12-29 00:11:10        
+ * @description 文章相关路由模块       
  */
 
 'use strict';
@@ -19,29 +19,35 @@ import Article from '../models/article.js';
 
 const router = express.Router();
 const md = new MarkdownIt();
+moment.locale("zh-cn");
 
 /**
- * 渲染文章页面
+ * Get article details page
  */
-router.get('/details/:id', (req, res, next) => {
-    Article.query(req.params.id, (err, result) => {
-        if (err) {
-            return next(err);
-        }
-        result.content = md.render(result.content);
-        res.render('article', {
-            article: result,
-            user: req.session.user
-        });
-    });
+router.get('/details/:id', (req, res) => {
+    Article.getArticleDetail(req.params.id)
+        .then(article => {
+            if (!article) {
+                return res.end(`not exsit number ${req.params.id} article`);
+            }
+            article.content = md.render(article.content);
+            res.render('article', {
+                user: req.session.user,
+                article: article
+            })
+        })
+        .catch(err => {
+            return res.end(`${err.message}`);
+        })
 });
 
+
 /**
- * 渲染发布文章页面
+ * Get publish page
  */
-router.get('/publish', (req, res, next) => {
+router.get('/publish', (req, res) => {
     if (!req.session.user) {
-        return res.redirect('/home');
+        return res.redirect('/');
     }
     res.render('publish', {
         user: req.session.user
@@ -49,9 +55,9 @@ router.get('/publish', (req, res, next) => {
 });
 
 /**
- * 处理发布文章业务模块
+ * Post publish
  */
-router.post('/publish', (req, res, next) => {
+router.post('/publish', (req, res) => {
 
     /*这里做数据验证,以后再说吧*/
 
@@ -62,26 +68,52 @@ router.post('/publish', (req, res, next) => {
         req.session.user.id
     ];
 
-    let article = new Article({ title, content, time, uid });
+    let article = new Article(title, content, time, uid);
 
-    article.insertArticle((err, result) => {
-        if (err) {
-            return next(err);
-        } else if (result.insertId <= 0) {
-            return res.json({
+    article.insertArticle()
+        .then(rows => {
+            if (rows.affectedRows === 0) {
+                return res.json({
+                    code: '0',
+                    msg: 'failed'
+                })
+            }
+            res.json({
                 code: '1',
-                msg: '文章发布失败'
-            });
-        }
-        return res.json({
-            code: '1',
-            msg: result.insertId
-        });
-    });
+                id: rows.insertId,
+                msg: 'publish article sucesss'
+            })
+        })
+        .catch(err => {
+            res.json({
+                code: '0',
+                msg: err.message
+            })
+        })
 });
 
 /**
- * 处理文件上传
+ * Get article list
+ */
+router.get('/page/:pageNum/:postAmount', (req, res) => {
+    let pageNum = Number.parseInt(req.params.pageNum);
+    let postAmount = Number.parseInt(req.params.postAmount);
+    Article.getArticleList(pageNum, postAmount)
+        .then(rows => {
+            rows.forEach((posts) => posts.time = moment(posts.time).startOf('second').fromNow());
+            res.json({
+                posts: rows
+            });
+        })
+        .catch(err => {
+            res.json({
+                msg: err.message
+            })
+        })
+});
+
+/**
+ * Post file
  */
 router.post('/upload', (req, res, next) => {
     let form = new formidable.IncomingForm();

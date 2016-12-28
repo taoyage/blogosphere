@@ -3,7 +3,7 @@
  * @FileName: app.js 						   
  * @Date:   2016-12-20 14:32:28 						   
  * @Last Modified by:   taoyage 	   
- * @Last Modified time: 2016-12-26 22:56:34 	   
+ * @Last Modified time: 2016-12-28 17:23:58 	   
  */
 
 'use strict';
@@ -26,11 +26,6 @@ app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 //================设置模版引擎==================
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'xtpl');
-
-
-//==============解析cookie=====================
-import cookieParser from 'cookie-parser';
-app.use(cookieParser());
 
 
 //==============session配置=====================

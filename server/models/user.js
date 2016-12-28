@@ -3,13 +3,13 @@
  * @FileName: user.js                          
  * @Date:   2016-12-23 18:18:35                            
  * @Last Modified by:   taoyage        
- * @Last Modified time: 2016-12-27 23:42:38        
+ * @Last Modified time: 2016-12-28 17:24:59        
  * discription : 登陆和注册业务相关操作数据库对象       
  */
 
 'use strict';
 
-import * as db from './db'
+import * as db from './db';
 
 export default class User {
     constructor(username, password, email, avatar = 'avatar.png') {
