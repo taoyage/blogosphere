@@ -1,12 +1,50 @@
-{{extend ("./layout")}}
-
-{{#block ("head")}}
-<link href="/www/css/register.css" rel="stylesheet" type="text/css"/>
-{{/block}}
-
-{{#block ("body")}}
-<div class="aw-register-box">
-  <div class="mod-head">
+{{extend ("./layout")}} {{#block ("head")}}
+<link href="/www/css/register.css" rel="stylesheet" type="text/css" /> {{/block}} {{#block ("body")}}
+<div id="register">
+    <div class="container">
+        <div class="text-center">
+            <img class="logo" src="/www/css/img/logo.png">
+        </div>
+        <h4 class="title">
+      <span class="text-center item">
+        <a href="/account/login">登录</a>
+        <b>·</b>
+        <a href="/account/register">注册</a>
+      </span>
+    </h4>
+        <div class="aw-register-box">
+            <div class="mod-body clearfix">
+                <form action="/account/register" class="aw-register-form" method="post" id="register_form">
+                    <ul>
+                        <li class="alert alert-danger hide error_message text-left">
+                            <i class="icon icon-delete"></i> <em></em>
+                        </li>
+                        <li>
+                            <input class="aw-register-name form-control" type="text" name="username" placeholder="用户名" value="{{username}}" />
+                        </li>
+                        <li>
+                            <input class="aw-register-email form-control" type="text" placeholder="邮箱" name="email" value="" />
+                        </li>
+                        <li>
+                            <input class="aw-register-pwd form-control" type="password" name="password" placeholder="密码" />
+                        </li>
+                        <hr/>
+                        <li class="aw-register-verify">
+                            <img class="pull-right" width="120" onclick="this.src = '/account/captcha?'+Math.random()" src="/account/captcha">
+                            <input type="text" class="form-control" name="vcode" placeholder="验证码" />
+                        </li>
+                        <li class="clearfix">
+                            <button class="btn btn-large btn-blue btn-block">
+                                注册
+                            </button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  <div class="mod-head">
     <a href="/"></a>
     <h1>注册新用户</h1>
   </div>
@@ -54,38 +92,32 @@
         </li>
       </ul>
     </form>
-  </div>
-  <div class="mod-footer"></div>
+  </div> -->
 </div>
-{{/block}}
-
-{{#block ("foot")}}
+{{/block}} {{#block ("foot")}}
 <script>
-
-    var $form = $('#register_form');
-    $form.on('submit',function(e){
-      e.preventDefault();
-      var url = $(this).attr('action');
-      var method = $(this).attr('method');
-      $.ajax({
-        url : url,
-        type : method,
+var $form = $('#register_form');
+$form.on('submit', function(e) {
+    e.preventDefault();
+    var url = $(this).attr('action');
+    var method = $(this).attr('method');
+    $.ajax({
+        url: url,
+        type: method,
         data: $form.serialize(),
-        dataType : 'json',
-        success : function(data){
-          if(data && data.code == 1){
-            console.log(data);
-            window.location.href = '/';
-          }else{
-            alert(JSON.stringify(data));
-          }
+        dataType: 'json',
+        success: function(data) {
+            if (data && data.code == 1) {
+                console.log(data);
+                window.location.href = '/';
+            } else {
+                alert(JSON.stringify(data));
+            }
         },
-        err:function(){
-          alert('注册失败');
+        err: function() {
+            alert('注册失败');
         }
-      })
     })
-
-
+})
 </script>
 {{/block}}

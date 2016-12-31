@@ -29,9 +29,9 @@
 .icon-home:before {
     content: "\e601";
 }
-.icon-bar:before {
+/*.icon-bar:before {
     content: "\e653";
-}
+}*/
 .icon-right:before {
     content: "\e651";
 }

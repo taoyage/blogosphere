@@ -1,6 +1,35 @@
 /* 注册页面 */
-body {
-    background: url('img/login_bg.jpg') no-repeat #E9F0F4;
+#register {
+    position: relative;
+    margin-bottom: 20px;
+    padding-top: 100px;
+}
+
+#register .logo {
+    width: 252px;
+}
+
+#register .title {
+    margin: 70px auto 50px;
+    font-size: 17.5px;
+    border-bottom: 1px solid #eeeeee;
+    color: #b1b1b1;
+    text-align:center;
+}
+
+#register .item {
+    position: relative;
+    top: 15px;
+    padding:0 20px 0 20px;
+    background: #fff;
+}
+
+#register .title a {
+    color: #b1b1b1;
+}
+
+#register b{
+    margin:0 10px;
 }
 
 .btn-blue {
@@ -20,16 +49,6 @@ body {
     background-color: #339DFF;
 }
 
-.aw-register-box {
-    width: 714px;
-    height: auto;
-    margin: 100px auto 40px;
-    padding: 50px 0;
-    background: #fff;
-    border: 1px solid #b3b3b3;
-    border-radius: 3px;
-    text-align: center;
-}
 
 .aw-register-box h1 {
     margin: 45px 0 0;
